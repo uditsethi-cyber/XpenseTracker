@@ -6,7 +6,6 @@ import Transaction from "./transaction";
 
 const Main = () => {
   const { expenseList } = useContext(ExpenseTrackerContext);
-  console.log(expenseList);
   return (
     <Grid container spacing={2}>
       <Grid item size={{ xs: 12, md: 9 }}>
@@ -16,8 +15,8 @@ const Main = () => {
             <span>No transactions!</span>
           ) : (
             <>
-              {expenseList?.map((expense) => (
-                <Transaction key={expense?.date} expense={expense} />
+              {expenseList?.map((expense, index) => (
+                <Transaction key={index} expense={expense} index={index} />
               ))}
             </>
           )}

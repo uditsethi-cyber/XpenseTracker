@@ -19,17 +19,18 @@ const ExpenseTracker = () => {
     date: "",
   };
   const editExpense = useRef(initialEditExpense);
+  const editIndex = useRef();
   const [expenseList, setExpenseList] = useState([]);
   const [isExpenseModelOpen, setIsExpenseModelOpen] = useState(false);
   useEffect(() => {
     if (!isExpenseModelOpen) {
-      console.log("Here", initialEditExpense);
       editExpense.current = initialEditExpense;
     }
   }, [isExpenseModelOpen]);
 
-  const handleEditExpense = (expense) => {
+  const handleEditExpense = (expense, index) => {
     editExpense.current = expense;
+    editIndex.current = index;
   };
 
   return (
@@ -57,6 +58,7 @@ const ExpenseTracker = () => {
           isOpen={isExpenseModelOpen}
           closeModel={() => setIsExpenseModelOpen(false)}
           editDataRef={editExpense}
+          editIndexRef={editIndex}
         />
       </Box>
     </ExpenseTrackerContext.Provider>

@@ -6,7 +6,7 @@ import { Grid } from "@mui/material";
 Modal.setAppElement("#root");
 import { useSnackbar } from "notistack";
 
-const ExpenseModal = ({ isOpen, closeModel, editDataRef }) => {
+const ExpenseModal = ({ isOpen, closeModel, editDataRef, editIndexRef }) => {
   const [expenseEntry, setExpanseEntry] = useState(editDataRef.current);
   const { walletStore, setWalletStore, expenseList, setExpenseList } =
     useContext(ExpenseTrackerContext);
@@ -36,12 +36,26 @@ const ExpenseModal = ({ isOpen, closeModel, editDataRef }) => {
       });
       return;
     }
-    const newExpenseList = [...expenseList, expenseEntry];
-    setExpenseList(newExpenseList);
-    setWalletStore({
-      ...walletStore,
-      walletBalance: +walletStore.walletBalance - expenseEntry?.price,
-    });
+    if (editDataRef.current.title) {
+      const newExpenseList = [...expenseList];
+      newExpenseList[editIndexRef.current] = expenseEntry;
+      setExpenseList(newExpenseList);
+      setWalletStore({
+        ...walletStore,
+        walletBalance:
+          +walletStore.walletBalance -
+          expenseEntry?.price +
+          Number(editDataRef.current.price),
+      });
+    } else {
+      const newExpenseList = [...expenseList, expenseEntry];
+      setExpenseList(newExpenseList);
+      setWalletStore({
+        ...walletStore,
+        walletBalance: +walletStore.walletBalance - expenseEntry?.price,
+      });
+    }
+
     closeModel();
   };
 

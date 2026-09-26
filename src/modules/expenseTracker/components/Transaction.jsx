@@ -7,8 +7,7 @@ import { FaPencil } from "react-icons/fa6";
 import { useContext } from "react";
 import ExpenseTrackerContext from "../store/context";
 
-const Transaction = ({ expense }) => {
-  console.log(expense);
+const Transaction = ({ expense, index }) => {
   const {
     walletStore,
     setWalletStore,
@@ -41,7 +40,7 @@ const Transaction = ({ expense }) => {
     setExpenseList(newList);
   };
   const handleEdit = (expense) => {
-    handleEditExpense(expense);
+    handleEditExpense(expense, index);
     setIsExpenseModelOpen(true);
   };
   return (
