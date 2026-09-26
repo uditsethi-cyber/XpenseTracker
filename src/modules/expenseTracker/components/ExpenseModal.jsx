@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
 import ExpenseTrackerContext from "../store/context";
 import "../styles/modal.css";
@@ -6,15 +6,10 @@ import { Grid } from "@mui/material";
 Modal.setAppElement("#root");
 import { useSnackbar } from "notistack";
 
-const ExpenseModal = ({ isOpen, closeModel }) => {
-  const initialEntryObject = {
-    title: "",
-    price: "",
-    category: "",
-    date: "",
-  };
-  const [expenseEntry, setExpanseEntry] = useState(initialEntryObject);
-  const { walletStore, setWalletStore } = useContext(ExpenseTrackerContext);
+const ExpenseModal = ({ isOpen, closeModel, editDataRef }) => {
+  const [expenseEntry, setExpanseEntry] = useState(editDataRef.current);
+  const { walletStore, setWalletStore, expenseList, setExpenseList } =
+    useContext(ExpenseTrackerContext);
   const { enqueueSnackbar } = useSnackbar();
 
   const handleInputChange = (e) => {
@@ -41,13 +36,18 @@ const ExpenseModal = ({ isOpen, closeModel }) => {
       });
       return;
     }
+    const newExpenseList = [...expenseList, expenseEntry];
+    setExpenseList(newExpenseList);
     setWalletStore({
       ...walletStore,
       walletBalance: +walletStore.walletBalance - expenseEntry?.price,
     });
     closeModel();
-    setExpanseEntry(initialEntryObject);
   };
+
+  useEffect(() => {
+    setExpanseEntry(editDataRef.current);
+  }, [isOpen, editDataRef]);
 
   return (
     <>

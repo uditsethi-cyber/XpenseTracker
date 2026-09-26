@@ -11,3 +11,25 @@
   flex-direction: column;
   gap: 1rem;
 }
+
+.transaction-container {
+  display: flex;
+  justify-content: space-between;
+  .item,
+  .action {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    .item-details {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+.transaction-parent-container {
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  padding: 16px;
+}
