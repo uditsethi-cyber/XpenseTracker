@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import React, { useContext } from "react";
 import "../styles/main.css";
 import ExpenseTrackerContext from "../store/context";
-import Transaction from "./transaction";
+import Transaction from "./Transaction";
 
 const Main = () => {
   const { expenseList } = useContext(ExpenseTrackerContext);
