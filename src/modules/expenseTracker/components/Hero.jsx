@@ -4,11 +4,13 @@ import Grid from "@mui/material/Grid";
 import Card from "./Card";
 import ExpenseTrackerContext from "../store/context";
 import AddBalanceModal from "./AddBalanceModal";
+import ExpensePieChart from "./ExpensePieChart";
 
 const Hero = () => {
-  const { walletStore, setIsExpenseModelOpen } = useContext(
+  const { walletStore, setIsExpenseModelOpen, expenseMap } = useContext(
     ExpenseTrackerContext,
   );
+  console.log(expenseMap);
   const [isAddModelOpen, setIsAddModelOpen] = useState(false);
 
   const incomeHandler = (action) => {
@@ -35,7 +37,9 @@ const Hero = () => {
             incomeHandler={() => incomeHandler("-")}
           />
         </Grid>
-        <Grid item size={{ xs: 12, md: 3 }}></Grid>
+        <Grid item size={{ xs: 12, md: 3 }}>
+          <ExpensePieChart data={expenseMap} />
+        </Grid>
       </Grid>
       <AddBalanceModal
         isOpen={isAddModelOpen}

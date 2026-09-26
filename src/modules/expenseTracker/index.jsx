@@ -11,7 +11,15 @@ const ExpenseTracker = () => {
     walletBalance: 5000,
     expenses: 0,
   };
-  const [walletStore, setWalletStore] = useState(initialWalletStore);
+  const [walletStore, setWalletStore] = useState(() => {
+    const localStorageWallet = localStorage.getItem("walletStore");
+
+    if (localStorageWallet) {
+      return JSON.parse(localStorageWallet);
+    }
+
+    return initialWalletStore;
+  });
   const initialEditExpense = {
     title: "",
     price: "",
@@ -20,7 +28,16 @@ const ExpenseTracker = () => {
   };
   const editExpense = useRef(initialEditExpense);
   const editIndex = useRef();
-  const [expenseList, setExpenseList] = useState([]);
+  const [expenseMap, setExpenseMap] = useState([]);
+  const [expenseList, setExpenseList] = useState(() => {
+    const localStorageExpenseList = localStorage.getItem("expenseList");
+
+    if (localStorageExpenseList) {
+      return JSON.parse(localStorageExpenseList);
+    }
+
+    return [];
+  });
   const [isExpenseModelOpen, setIsExpenseModelOpen] = useState(false);
   useEffect(() => {
     if (!isExpenseModelOpen) {
@@ -33,6 +50,29 @@ const ExpenseTracker = () => {
     editIndex.current = index;
   };
 
+  useEffect(() => {
+    localStorage.setItem("walletStore", JSON.stringify(walletStore));
+  }, [walletStore]);
+  useEffect(() => {
+    localStorage.setItem("expenseList", JSON.stringify(expenseList));
+    const expMap = {
+      Food: 0,
+      Travel: 0,
+      Entertainment: 0,
+    };
+    expenseList?.forEach((expense) => {
+      expMap[expense?.category] += expense?.price;
+    });
+    const expMapArr = [];
+    for (let [key, val] of Object.entries(expMap)) {
+      expMapArr.push({
+        category: key,
+        price: val,
+      });
+    }
+    setExpenseMap(expMapArr);
+  }, [expenseList]);
+
   return (
     <ExpenseTrackerContext.Provider
       value={{
@@ -42,6 +82,7 @@ const ExpenseTracker = () => {
         setExpenseList,
         setIsExpenseModelOpen,
         handleEditExpense,
+        expenseMap,
       }}
     >
       <Box
