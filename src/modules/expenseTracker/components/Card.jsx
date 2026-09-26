@@ -8,11 +8,9 @@ const Card = ({ maintitle, buttontitle, amount, incomeHandler }) => {
       </span>
       <button
         className={
-          buttontitle === "+ Add Income"
-            ? styles["primary-button"]
-            : styles["secondary-button"]
+          buttontitle === "+ Add Income" ? "primary-button" : "secondary-button"
         }
-        onClick={() => incomeHandler}
+        onClick={incomeHandler}
       >
         {buttontitle}
       </button>

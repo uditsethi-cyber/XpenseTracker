@@ -10,17 +10,4 @@
   .amount {
     color: red;
   }
-  button {
-    border-radius: 15px;
-    color: white;
-    height: 50px;
-    width: 150px;
-    cursor: pointer;
-  }
-  .primary-button {
-    background-color: lightgreen;
-  }
-  .secondary-button {
-    background-color: red;
-  }
 }

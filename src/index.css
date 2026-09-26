@@ -67,3 +67,19 @@ body {
   padding: 1rem;
   color: white;
 }
+
+button {
+  border-radius: 15px;
+  color: black;
+  height: 50px;
+  width: 150px;
+  cursor: pointer;
+}
+.primary-button {
+  background-color: lightgreen;
+  color: white;
+}
+.secondary-button {
+  background-color: red;
+  color: white;
+}
