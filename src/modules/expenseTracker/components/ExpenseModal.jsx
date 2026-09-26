@@ -46,6 +46,10 @@ const ExpenseModal = ({ isOpen, closeModel, editDataRef, editIndexRef }) => {
           +walletStore.walletBalance -
           expenseEntry?.price +
           Number(editDataRef.current.price),
+        expenses:
+          +walletStore.expenses +
+          Number(expenseEntry?.price) -
+          Number(editDataRef.current.price),
       });
     } else {
       const newExpenseList = [...expenseList, expenseEntry];
@@ -53,6 +57,7 @@ const ExpenseModal = ({ isOpen, closeModel, editDataRef, editIndexRef }) => {
       setWalletStore({
         ...walletStore,
         walletBalance: +walletStore.walletBalance - expenseEntry?.price,
+        expenses: +walletStore.expenses + Number(expenseEntry?.price),
       });
     }
 

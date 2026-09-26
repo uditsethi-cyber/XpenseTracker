@@ -52,6 +52,8 @@ const ExpenseTracker = () => {
 
   useEffect(() => {
     localStorage.setItem("walletStore", JSON.stringify(walletStore));
+    localStorage.setItem("expenses", JSON.stringify(walletStore?.expenses));
+    localStorage.setItem("balance", JSON.stringify(walletStore?.walletBalance));
   }, [walletStore]);
   useEffect(() => {
     localStorage.setItem("expenseList", JSON.stringify(expenseList));

@@ -33,7 +33,7 @@ const Transaction = ({ expense, index }) => {
         setWalletStore({
           ...walletStore,
           walletBalance: +walletStore?.walletBalance + +expense?.price,
-          expense: +walletStore?.expense - +expense?.price,
+          expenses: Number(walletStore?.expenses) - Number(expense?.price),
         });
       }
     }
