@@ -30,7 +30,7 @@ const ExpenseTracker = () => {
   const editIndex = useRef();
   const [expenseMap, setExpenseMap] = useState([]);
   const [expenseList, setExpenseList] = useState(() => {
-    const localStorageExpenseList = localStorage.getItem("expenseList");
+    const localStorageExpenseList = localStorage.getItem("expenses");
 
     if (localStorageExpenseList) {
       return JSON.parse(localStorageExpenseList);
@@ -52,11 +52,9 @@ const ExpenseTracker = () => {
 
   useEffect(() => {
     localStorage.setItem("walletStore", JSON.stringify(walletStore));
-    localStorage.setItem("expenses", JSON.stringify(walletStore?.expenses));
-    localStorage.setItem("balance", JSON.stringify(walletStore?.walletBalance));
   }, [walletStore]);
   useEffect(() => {
-    localStorage.setItem("expenseList", JSON.stringify(expenseList));
+    localStorage.setItem("expenses", JSON.stringify(expenseList));
     const expMap = {
       Food: 0,
       Travel: 0,
